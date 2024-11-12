@@ -2,9 +2,7 @@ import { Suspense } from 'react'
 import './App.css'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
-import { ScreenPlane } from '../src/components/ScreenPlane2'
-//import { ScreenPlane } from '../src/components/ScreenPlane'
-//import { CollisionSettting } from './components/CollisionSetting'
+import { ShaderPlane } from './components/ShaderPlane'
 import { css } from '@emotion/css'
 
 function App() {
@@ -24,10 +22,8 @@ function App() {
         <color attach="background" args={['#000']} />
         <Suspense fallback={null}>
           <OrbitControls />
-          {/*<CollisionSettting />*/}
-          <ScreenPlane />
+          <ShaderPlane />
         </Suspense>
-        <axesHelper />
       </Canvas>
     </div>
   )
