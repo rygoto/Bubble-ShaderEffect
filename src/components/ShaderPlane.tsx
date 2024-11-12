@@ -1,7 +1,7 @@
-import { FC, useCallback, useEffect, useState, useRef } from 'react'
+import { FC, useCallback, useState, useRef } from 'react'
 import * as THREE from 'three'
 import { Plane, useTexture } from '@react-three/drei'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useFrame, useThree, ThreeEvent } from '@react-three/fiber'
 
 type Data = {
     position: THREE.Vector3
@@ -115,7 +115,7 @@ export const ShaderPlane: FC = () => {
         side: THREE.DoubleSide,
     };
 
-    const handleInteraction = useCallback((event: MouseEvent | Touch) => {
+    const handleInteraction = useCallback((event: ThreeEvent<MouseEvent>) => {
         const x = (event.clientX / window.innerWidth) * 2 - 1
         //console.log(x)
         if (x < 0) {
@@ -224,8 +224,8 @@ export const ShaderPlane: FC = () => {
             <Plane
                 args={[1, 1]}
                 scale={[viewport.width, viewport.height, 1]}
-                onClick={(e) => handleInteraction}
-                onPointerDown={(e) => handleInteraction}
+                onClick={() => handleInteraction}
+                onPointerDown={() => handleInteraction}
             >
                 <shaderMaterial attach="material" args={[shader]} transparent={true} />
             </Plane>
