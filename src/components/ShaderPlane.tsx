@@ -1,4 +1,4 @@
-import { FC, useCallback, useState, useRef } from 'react'
+import { FC, useCallback, useState, useRef, MutableRefObject } from 'react'
 import * as THREE from 'three'
 import { Plane, useTexture } from '@react-three/drei'
 import { useFrame, useThree, ThreeEvent } from '@react-three/fiber'
@@ -15,7 +15,7 @@ type Data = {
     birthTime: number
 }
 
-const generateParticlesInLeft = (timeRef): Data[] => {
+const generateParticlesInLeft = (timeRef: MutableRefObject<number>): Data[] => {
     return [...Array(24)].map((_, i) => ({
         position: new THREE.Vector3(
             THREE.MathUtils.randFloat(-16.6, -17.3),
@@ -44,7 +44,7 @@ const generateParticlesInLeft = (timeRef): Data[] => {
     }))
 }
 
-const generateParticlesInRight = (timeRef): Data[] => {
+const generateParticlesInRight = (timeRef: MutableRefObject<number>): Data[] => {
     return [...Array(24)].map((_, i) => ({
         position: new THREE.Vector3(
             THREE.MathUtils.randFloat(16.6, 17.3),
@@ -69,7 +69,7 @@ const generateParticlesInRight = (timeRef): Data[] => {
 
 export const ShaderPlane: FC = () => {
     const timeRef = useRef(0)
-    useFrame((state, delta) => {
+    useFrame((_state, delta) => {
         timeRef.current += delta
     })
 
@@ -130,7 +130,7 @@ export const ShaderPlane: FC = () => {
     });
 
     //const timeRef = useRef(0)
-    useFrame((state, delta) => {
+    useFrame((_state, delta) => {
         timeRef.current += delta
         setParticles(prevParticles => {
             return prevParticles.map(data => {
